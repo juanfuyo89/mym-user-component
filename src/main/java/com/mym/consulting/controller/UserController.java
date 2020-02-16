@@ -2,6 +2,7 @@ package com.mym.consulting.controller;
 
 import com.mym.consulting.model.Response;
 import com.mym.consulting.services.UserService;
+import com.mym.consulting.util.TokenGenerator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,11 @@ public class UserController {
         String token = userService.validateUser(user, password);
         logInfo("Validando usuario: " + user);
         return new ResponseEntity<String>(token, (token != null && !token.isEmpty()) ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+    }
+
+    @RequestMapping(produces = "application/json", method = RequestMethod.GET, path = "/testToken")
+    public ResponseEntity<String> tokenTest(){
+        return new ResponseEntity<String>("token valido", HttpStatus.OK);
     }
 
     /**
