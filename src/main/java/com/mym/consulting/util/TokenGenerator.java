@@ -1,5 +1,6 @@
 package com.mym.consulting.util;
 
+import com.mym.consulting.security.JWTAuthorizationFilter;
 import io.jsonwebtoken.JwtBuilder;
 import org.springframework.security.core.authority.AuthorityUtils;
 import io.jsonwebtoken.Jwts;
@@ -11,20 +12,16 @@ import java.util.List;
 @Component
 public class TokenGenerator {
 
-    public static final String JWT_ID = "mymJWT";
-    public static final String SECRET = "mymSecretKey";
-    public static final String PREFIX = "Bearer ";
-
-    private final Long EXPIRATION = 600000l;
+    private final Long expiration = 600000l;
 
     public String getJWTToken(String username) {
-        JwtBuilder builder = Jwts.builder().setId(JWT_ID)
+        JwtBuilder builder = Jwts.builder().setId(JWTAuthorizationFilter.JWT_ID)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setSubject(username)
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION))
+                .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(SignatureAlgorithm.HS512,
-                        SECRET.getBytes());
-        return PREFIX + builder.compact();
+                        JWTAuthorizationFilter.SECRET.getBytes());
+        return JWTAuthorizationFilter.PREFIX + builder.compact();
     }
 
 }

@@ -6,7 +6,7 @@ package com.mym.consulting.model;
 public class Response {
 
     public static final String DATE_ERROR_MSG = "Una fecha de baja no puede ser superior a una fecha de compra";
-    public static final String VALIDATION_ERR_MSG = "Error en la solicitud, no cumple con los campos obligatorios requeridos";
+    public static final String TOKEN_ERR_MSG = "Acceso no permitido - token invalido";
     public static final String GENERAL_ERR_MSG = "Error interno, intentelo mas tarde";
 
     private static Response instanceToReturn;

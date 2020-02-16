@@ -10,34 +10,32 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.mym.consulting.util.TokenGenerator;
+import io.jsonwebtoken.*;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.UnsupportedJwtException;
-
 public class JWTAuthorizationFilter extends OncePerRequestFilter {
 
-    private final String HEADER = "Authorization";
+    public static final String JWT_ID = "mymJWT";
+    public static final String SECRET = "mymSecretKey";
+    public static final String PREFIX = "Bearer ";
+    public static final String HEADER = "Authorization";
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
         try {
             if (checkJWTToken(request, response)) {
                 Claims claims = validateToken(request);
-                if (claims.getId().equals(TokenGenerator.JWT_ID)) {
+                if (claims.getId().equals(JWT_ID)) {
                     setUpSpringAuthentication(claims);
                 } else {
                     SecurityContextHolder.clearContext();
                 }
             }
             chain.doFilter(request, response);
-        } catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException e) {
+        } catch (SignatureException | ExpiredJwtException | UnsupportedJwtException | MalformedJwtException e) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             ((HttpServletResponse) response).sendError(HttpServletResponse.SC_FORBIDDEN, e.getMessage());
             return;
@@ -45,8 +43,8 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
     }
 
     private Claims validateToken(HttpServletRequest request) {
-        String jwtToken = request.getHeader(HEADER).replace(TokenGenerator.PREFIX, "");
-        return Jwts.parser().setSigningKey(TokenGenerator.SECRET.getBytes()).parseClaimsJws(jwtToken).getBody();
+        String jwtToken = request.getHeader(HEADER).replace(PREFIX, "");
+        return Jwts.parser().setSigningKey(SECRET.getBytes()).parseClaimsJws(jwtToken).getBody();
     }
 
     /**
@@ -60,7 +58,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 
     private boolean checkJWTToken(HttpServletRequest request, HttpServletResponse res) {
         String authenticationHeader = request.getHeader(HEADER);
-        if (authenticationHeader == null || !authenticationHeader.startsWith(TokenGenerator.PREFIX))
+        if (authenticationHeader == null || !authenticationHeader.startsWith(PREFIX))
             return false;
         return true;
     }
