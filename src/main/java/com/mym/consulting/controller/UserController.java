@@ -30,11 +30,6 @@ public class UserController {
         return new ResponseEntity<String>("token valido", HttpStatus.OK);
     }
 
-    /**
-     * Maneja las excepciones generales de la Api
-     * @param e Exception
-     * @return ResponseEntity<Response>
-     */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Response> generalExceptionHandler(Exception e) {
         logError(e);
