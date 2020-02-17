@@ -19,10 +19,10 @@ public class UserController {
     UserService userService;
 
     @RequestMapping(produces = "application/json", method = RequestMethod.GET, path = "/userlogin/{user}/{password}")
-    public ResponseEntity<String> loginUser(@PathVariable("user") String user, @PathVariable("password") String password){
+    public ResponseEntity<Response> loginUser(@PathVariable("user") String user, @PathVariable("password") String password){
         String token = userService.validateUser(user, password);
         logInfo("Validando usuario: " + user);
-        return new ResponseEntity<String>(token, (token != null && !token.isEmpty()) ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+        return new ResponseEntity<Response>(Response.getIntance(token), (token != null && !token.isEmpty()) ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
     @RequestMapping(produces = "application/json", method = RequestMethod.GET, path = "/testToken")

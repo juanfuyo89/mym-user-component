@@ -26,7 +26,9 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
         try {
-            if (checkJWTToken(request, response)) {
+            if (request.getRequestURI().contains("userlogin")) {
+                SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(null, null, null));
+            }else if (checkJWTToken(request, response)) {
                 Claims claims = validateToken(request);
                 if (claims.getId().equals(JWT_ID)) {
                     setUpSpringAuthentication(claims);
