@@ -1,5 +1,7 @@
 package com.mym.consulting.model;
 
+import lombok.NoArgsConstructor;
+
 /**
  * Clase que modela una respuesta con un mensaje al cliente Rest
  */
@@ -21,6 +23,9 @@ public class Response {
         this.responseMessage = responseMessage;
     }
 
+    public Response(){
+
+    }
     /**
      * Metodo para obtener la unica instancia en memoria
      *
