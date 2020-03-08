@@ -31,9 +31,9 @@ public class StageController extends GenericController {
     }
 
     @RequestMapping(produces = "application/json", method = RequestMethod.POST, path = "/saveStage")
-    public ResponseEntity<Response> saveProject(@RequestBody(required = true) Etapa etapa){
-        stageService.addStage(etapa);
-        logInfo("Guardando etapa: " + etapa.getNombre());
+    public ResponseEntity<Response> saveStage(@RequestBody(required = true) Etapa stage){
+        stageService.addStage(stage);
+        logInfo("Guardando etapa: " + stage.getNombre());
         return new ResponseEntity<Response>(Response.getIntance("Etapa guardada exitosamente."), HttpStatus.OK);
     }
 

@@ -16,4 +16,8 @@ public class DeliverableService {
     public List<Entregable> getAllDeliverables(){
         return deliverableRepository.findAll();
     }
+
+    public void saveDeliverable(Entregable deliverable) {
+        deliverableRepository.save(deliverable);
+    }
 }
