@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-public class StageResponse extends Response{
+public class StageResponse extends Response {
     public StageResponse(String message, List<Etapa> stagesList){
         super.setResponseMessage(message);
         this.stagesList = stagesList;

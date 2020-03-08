@@ -16,13 +16,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-public class StageController extends GenericController{
+public class StageController extends GenericController {
 
     @Autowired
     StageService stageService;
 
     @RequestMapping(produces = "application/json", method = RequestMethod.GET, path = "/getAllStages")
-    public ResponseEntity<StageResponse> getAllClients(){
+    public ResponseEntity<StageResponse> getAllStages(){
         logInfo("Inicia consulta de etapas: ");
         List<Etapa> stageList = new ArrayList<Etapa>();
         stageList = stageService.getAllStages();
