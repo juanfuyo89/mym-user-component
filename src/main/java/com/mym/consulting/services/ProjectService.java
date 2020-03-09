@@ -1,8 +1,10 @@
 package com.mym.consulting.services;
 
+import com.mym.consulting.entities.EntregablesEtapa;
 import com.mym.consulting.entities.EtapasProyecto;
 import com.mym.consulting.entities.Proyecto;
 import com.mym.consulting.model.SaveProjectRequest;
+import com.mym.consulting.repositories.DeliverableStagesRepository;
 import com.mym.consulting.repositories.ProjectRepository;
 import com.mym.consulting.repositories.StagesProjectsRepository;
 import com.mym.consulting.repositories.ValueRepository;
@@ -21,6 +23,8 @@ public class ProjectService {
     ValueRepository valueRepository;
     @Autowired
     StagesProjectsRepository stagesProjectsRepository;
+    @Autowired
+    DeliverableStagesRepository deliverableStagesRepository;
 
     @Transactional
     public void saveProject(SaveProjectRequest request) {
@@ -28,11 +32,17 @@ public class ProjectService {
         this.projectRepository.save(project);
         request.getValue().setIdProyecto(project.getId());
         this.valueRepository.save(request.getValue());
-        request.getStagesProject().forEach(stage -> {
+        request.getStageProjectList().forEach(stage -> {
             EtapasProyecto etapasProyecto = new EtapasProyecto();
             stage.setIdProyecto(project.getId());
             etapasProyecto.setId(stage);
             this.stagesProjectsRepository.save(etapasProyecto);
+        });
+        request.getDeliverableStageList().forEach(deliverable -> {
+            EntregablesEtapa entregablesEtapa = new EntregablesEtapa();
+            deliverable.setIdProyecto(project.getId());
+            entregablesEtapa.setId(deliverable);
+            this.deliverableStagesRepository.save(entregablesEtapa);
         });
     }
 

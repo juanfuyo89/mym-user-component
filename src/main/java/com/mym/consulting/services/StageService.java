@@ -9,6 +9,7 @@ import java.util.List;
 
 @Service
 public class StageService {
+
     @Autowired
     StageRepository stageRepository;
 
@@ -16,4 +17,9 @@ public class StageService {
         List<Etapa> allStages = stageRepository.findAll();
         return allStages;
     }
+
+    public void addStage(Etapa etapa) {
+        stageRepository.save(etapa);
+    }
+
 }

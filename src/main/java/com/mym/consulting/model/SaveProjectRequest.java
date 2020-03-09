@@ -1,5 +1,6 @@
 package com.mym.consulting.model;
 
+import com.mym.consulting.entities.EntregablesEtapaPK;
 import com.mym.consulting.entities.EtapasProyectoPK;
 import com.mym.consulting.entities.Proyecto;
 import com.mym.consulting.entities.Valor;
@@ -15,5 +16,6 @@ import java.util.List;
 public class SaveProjectRequest {
     private Proyecto project;
     private Valor value;
-    private List<EtapasProyectoPK> stagesProject;
+    private List<EtapasProyectoPK> stageProjectList;
+    private List<EntregablesEtapaPK> deliverableStageList;
 }
