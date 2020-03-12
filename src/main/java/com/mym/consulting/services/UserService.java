@@ -1,10 +1,15 @@
 package com.mym.consulting.services;
 
+import com.mym.consulting.entities.Etapa;
 import com.mym.consulting.entities.Usuario;
+import com.mym.consulting.model.User;
 import com.mym.consulting.repositories.UserRepository;
 import com.mym.consulting.util.TokenGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -23,6 +28,17 @@ public class UserService {
             token = usuario.getToken();
         }
         return token;
+    }
+
+    public List<User> getAllUsers(){
+        List<Usuario> allUsers = userRepository.findAll();
+        List<User> response = new ArrayList<>();
+        allUsers.forEach(user -> {
+            String role = (user.getIdRol() == 1) ? "ADMINISTRADOR" : "USUARIO";
+            User userTemp = new User(user.getId(), user.getUserName(), user.getNombre(), role);
+            response.add(userTemp);
+        });
+        return response;
     }
 
 }

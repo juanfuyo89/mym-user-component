@@ -2,24 +2,21 @@ package com.mym.consulting.controller;
 
 
 import com.mym.consulting.entities.Proyecto;
-import com.mym.consulting.model.DeliverableResponse;
-import com.mym.consulting.model.ProjectResponse;
-import com.mym.consulting.model.Response;
-import com.mym.consulting.model.SaveProjectRequest;
+import com.mym.consulting.entities.Valor;
+import com.mym.consulting.model.*;
 import com.mym.consulting.services.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class ProjectController extends GenericController {
 
     @Autowired
-    ProjectService projectService;
+    private ProjectService projectService;
 
     @RequestMapping(produces = "application/json", method = RequestMethod.POST, path = "/saveProject")
     public ResponseEntity<Response> saveProject(@RequestBody(required = true) SaveProjectRequest request){
@@ -28,12 +25,18 @@ public class ProjectController extends GenericController {
         return new ResponseEntity<Response>(Response.getIntance("Proyecto guardado exitosamente."), HttpStatus.OK);
     }
 
-    @RequestMapping(produces = "application/json", method = RequestMethod.POST, path = "/getAllProjects")
-    public ResponseEntity<ProjectResponse> getProject(@RequestBody(required = true) SaveProjectRequest request){
+    @RequestMapping(produces = "application/json", method = RequestMethod.GET, path = "/getAllProjects")
+    public ResponseEntity<ProjectResponse> getAllProjects() {
         logInfo("Inicia consulta de proyectos: ");
-        List<Proyecto> projectList = new ArrayList<Proyecto>();
-        projectList = projectService.getProject();
+        List<Proyecto> projectList = projectService.getProject();
         return new ResponseEntity<ProjectResponse>(new ProjectResponse("Consulta exitosa", projectList), (projectList != null && !projectList.isEmpty()) ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+    }
+
+    @RequestMapping(produces = "application/json", method = RequestMethod.GET, path = "/getValueByProject/{projectId}")
+    public ResponseEntity<ValueResponse> getValueByProject(@PathVariable(required = true) Integer projectId) {
+        logInfo("Inicia consulta de valor del proyecto ");
+        Valor valor = projectService.getValueByProject(projectId);
+        return new ResponseEntity<ValueResponse>(new ValueResponse("Consulta exitosa", valor), (valor != null && valor.getIdProyecto() != 0) ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
 }

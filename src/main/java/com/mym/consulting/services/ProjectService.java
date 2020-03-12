@@ -3,6 +3,7 @@ package com.mym.consulting.services;
 import com.mym.consulting.entities.EntregablesEtapa;
 import com.mym.consulting.entities.EtapasProyecto;
 import com.mym.consulting.entities.Proyecto;
+import com.mym.consulting.entities.Valor;
 import com.mym.consulting.model.SaveProjectRequest;
 import com.mym.consulting.repositories.DeliverableStagesRepository;
 import com.mym.consulting.repositories.ProjectRepository;
@@ -18,20 +19,26 @@ import java.util.List;
 public class ProjectService {
 
     @Autowired
-    ProjectRepository projectRepository;
+    private ProjectRepository projectRepository;
     @Autowired
-    ValueRepository valueRepository;
+    private ValueRepository valueRepository;
     @Autowired
-    StagesProjectsRepository stagesProjectsRepository;
+    private StagesProjectsRepository stagesProjectsRepository;
     @Autowired
-    DeliverableStagesRepository deliverableStagesRepository;
+    private DeliverableStagesRepository deliverableStagesRepository;
 
     @Transactional
     public void saveProject(SaveProjectRequest request) {
         Proyecto project = request.getProject();
         this.projectRepository.save(project);
         request.getValue().setIdProyecto(project.getId());
-        this.valueRepository.save(request.getValue());
+        Valor value = this.valueRepository.findByIdProject(project.getId());
+        if (value != null && value.getTotal() > 0) {
+            value.setTotal(request.getValue().getTotal());
+        } else {
+            value = request.getValue();
+        }
+        this.valueRepository.save(value);
         request.getStageProjectList().forEach(stage -> {
             EtapasProyecto etapasProyecto = new EtapasProyecto();
             stage.setIdProyecto(project.getId());
@@ -46,9 +53,11 @@ public class ProjectService {
         });
     }
 
-    @Transactional
     public List<Proyecto> getProject() {
         return projectRepository.findAll();
     }
 
+    public Valor getValueByProject(Integer projectId) {
+        return valueRepository.findByIdProject(projectId);
+    }
 }
