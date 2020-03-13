@@ -38,6 +38,14 @@ public class UserController extends GenericController{
                 (userList != null && !userList.isEmpty()) ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
+    @RequestMapping(produces = "application/json", method = RequestMethod.GET, path = "/getUsersByTeam/{teamId}")
+    public ResponseEntity<UserResponse> getUsersByTeam(@PathVariable("teamId") Integer teamId){
+        logInfo("Inicia consulta de usuarios: ");
+        List<User> userList = userService.getUsersByTeam(teamId);
+        return new ResponseEntity<UserResponse>(new UserResponse("Consulta exitosa", userList),
+                (userList != null && !userList.isEmpty()) ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+    }
+
     @RequestMapping(produces = "application/json", method = RequestMethod.GET, path = "/testToken")
     public ResponseEntity<String> tokenTest(){
         return new ResponseEntity<String>("token valido", HttpStatus.OK);

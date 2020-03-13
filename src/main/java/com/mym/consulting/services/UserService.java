@@ -2,8 +2,10 @@ package com.mym.consulting.services;
 
 import com.mym.consulting.entities.Etapa;
 import com.mym.consulting.entities.Usuario;
+import com.mym.consulting.entities.UsuariosEquipo;
 import com.mym.consulting.model.User;
 import com.mym.consulting.repositories.UserRepository;
+import com.mym.consulting.repositories.UsersTeamRepository;
 import com.mym.consulting.util.TokenGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,8 @@ public class UserService {
     UserRepository userRepository;
     @Autowired
     TokenGenerator tokenGenerator;
+    @Autowired
+    UsersTeamRepository usersTeamRepository;
 
     public String validateUser(String user, String password){
         String token = "";
@@ -35,7 +39,19 @@ public class UserService {
         List<User> response = new ArrayList<>();
         allUsers.forEach(user -> {
             String role = (user.getIdRol() == 1) ? "ADMINISTRADOR" : "USUARIO";
-            User userTemp = new User(user.getId(), user.getUserName(), user.getNombre(), role);
+            User userTemp = new User(user.getId(), user.getUserName(), user.getNombre(), role, false);
+            response.add(userTemp);
+        });
+        return response;
+    }
+
+    public List<User> getUsersByTeam(Integer teamId){
+        List<UsuariosEquipo> allUsers = usersTeamRepository.findByTeam(teamId);
+        List<User> response = new ArrayList<>();
+        allUsers.forEach(user -> {
+            Usuario userBd = userRepository.findById(user.getId().getIdUsuario()).get();
+            String role = (userBd.getIdRol() == 1) ? "ADMINISTRADOR" : "USUARIO";
+            User userTemp = new User(userBd.getId(), userBd.getUserName(), userBd.getNombre(), role, user.getEsLider());
             response.add(userTemp);
         });
         return response;
