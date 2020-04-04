@@ -1,20 +1,14 @@
 package com.mym.consulting.controller;
 
-import com.mym.consulting.entities.Etapa;
-import com.mym.consulting.model.Response;
-import com.mym.consulting.model.StageResponse;
+import com.mym.consulting.model.response.Response;
 import com.mym.consulting.model.User;
-import com.mym.consulting.model.UserResponse;
+import com.mym.consulting.model.response.UserResponse;
 import com.mym.consulting.services.UserService;
-import com.mym.consulting.util.TokenGenerator;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController

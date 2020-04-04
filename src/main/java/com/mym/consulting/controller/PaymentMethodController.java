@@ -1,11 +1,8 @@
 package com.mym.consulting.controller;
 
-import com.mym.consulting.entities.Etapa;
 import com.mym.consulting.entities.FormaPago;
-import com.mym.consulting.model.PaymentMethodResponse;
-import com.mym.consulting.model.Response;
-import com.mym.consulting.model.SaveProjectRequest;
-import com.mym.consulting.model.StageResponse;
+import com.mym.consulting.model.response.PaymentMethodResponse;
+import com.mym.consulting.model.response.Response;
 import com.mym.consulting.services.PaymentMethodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

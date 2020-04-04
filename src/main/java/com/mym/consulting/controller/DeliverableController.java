@@ -2,12 +2,9 @@ package com.mym.consulting.controller;
 
 import com.mym.consulting.entities.Entregable;
 import com.mym.consulting.entities.EntregablesEtapa;
-import com.mym.consulting.entities.Etapa;
-import com.mym.consulting.entities.EtapasProyecto;
-import com.mym.consulting.model.DeliverableByProjectResponse;
-import com.mym.consulting.model.DeliverableResponse;
-import com.mym.consulting.model.Response;
-import com.mym.consulting.model.StagesByProjectResponse;
+import com.mym.consulting.model.response.DeliverableByProjectResponse;
+import com.mym.consulting.model.response.DeliverableResponse;
+import com.mym.consulting.model.response.Response;
 import com.mym.consulting.services.DeliverableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

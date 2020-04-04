@@ -1,9 +1,8 @@
 package com.mym.consulting.controller;
 
 import com.mym.consulting.entities.Cliente;
-import com.mym.consulting.model.ClientResponse;
-import com.mym.consulting.model.Response;
-import com.mym.consulting.model.SaveProjectRequest;
+import com.mym.consulting.model.response.ClientResponse;
+import com.mym.consulting.model.response.Response;
 import com.mym.consulting.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

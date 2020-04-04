@@ -1,6 +1,4 @@
-package com.mym.consulting.model;
-
-import lombok.NoArgsConstructor;
+package com.mym.consulting.model.response;
 
 /**
  * Clase que modela una respuesta con un mensaje al cliente Rest

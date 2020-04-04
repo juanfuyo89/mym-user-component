@@ -1,7 +1,7 @@
 package com.mym.consulting.controller;
 
 import com.mym.consulting.entities.Ciudad;
-import com.mym.consulting.model.CityResponse;
+import com.mym.consulting.model.response.CityResponse;
 import com.mym.consulting.services.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
