@@ -1,7 +1,7 @@
 package com.mym.consulting.controller;
 
 
-import com.mym.consulting.model.Response;
+import com.mym.consulting.model.response.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;

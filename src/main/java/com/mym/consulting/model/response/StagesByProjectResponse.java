@@ -1,4 +1,4 @@
-package com.mym.consulting.model;
+package com.mym.consulting.model.response;
 
 import com.mym.consulting.entities.EtapasProyecto;
 import lombok.AllArgsConstructor;

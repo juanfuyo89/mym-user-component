@@ -2,9 +2,9 @@ package com.mym.consulting.controller;
 
 import com.mym.consulting.entities.Etapa;
 import com.mym.consulting.entities.EtapasProyecto;
-import com.mym.consulting.model.Response;
-import com.mym.consulting.model.StageResponse;
-import com.mym.consulting.model.StagesByProjectResponse;
+import com.mym.consulting.model.response.Response;
+import com.mym.consulting.model.response.StageResponse;
+import com.mym.consulting.model.response.StagesByProjectResponse;
 import com.mym.consulting.services.StageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

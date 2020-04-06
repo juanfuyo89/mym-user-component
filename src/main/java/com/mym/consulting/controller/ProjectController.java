@@ -4,6 +4,9 @@ package com.mym.consulting.controller;
 import com.mym.consulting.entities.Proyecto;
 import com.mym.consulting.entities.Valor;
 import com.mym.consulting.model.*;
+import com.mym.consulting.model.response.ProjectResponse;
+import com.mym.consulting.model.response.Response;
+import com.mym.consulting.model.response.ValueResponse;
 import com.mym.consulting.services.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,14 +24,14 @@ public class ProjectController extends GenericController {
     @RequestMapping(produces = "application/json", method = RequestMethod.POST, path = "/saveProject")
     public ResponseEntity<Response> saveProject(@RequestBody(required = true) SaveProjectRequest request){
         projectService.saveProject(request);
-        logInfo("Guardando proyecto: " + request.getProject().getNombre());
+        logInfo("Guardando proyecto: " + request.getProject().getCodigoProyecto());
         return new ResponseEntity<Response>(Response.getIntance("Proyecto guardado exitosamente."), HttpStatus.OK);
     }
 
     @RequestMapping(produces = "application/json", method = RequestMethod.GET, path = "/getAllProjects")
     public ResponseEntity<ProjectResponse> getAllProjects() {
         logInfo("Inicia consulta de proyectos: ");
-        List<Proyecto> projectList = projectService.getProject();
+        List<Proyecto> projectList = projectService.getAllProjects();
         return new ResponseEntity<ProjectResponse>(new ProjectResponse("Consulta exitosa", projectList), (projectList != null && !projectList.isEmpty()) ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 

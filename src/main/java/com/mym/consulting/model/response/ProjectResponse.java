@@ -1,6 +1,5 @@
-package com.mym.consulting.model;
+package com.mym.consulting.model.response;
 
-import com.mym.consulting.entities.Entregable;
 import com.mym.consulting.entities.Proyecto;
 import lombok.AllArgsConstructor;
 import lombok.Data;

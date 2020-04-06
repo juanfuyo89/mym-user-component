@@ -12,4 +12,5 @@ public class User {
     private String username;
     private String name;
     private String role;
+    private Boolean isLeader;
 }
