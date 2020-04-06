@@ -1,7 +1,7 @@
 package com.mym.consulting.controller;
 
 import com.mym.consulting.entities.Alerta;
-import com.mym.consulting.model.Response;
+import com.mym.consulting.model.response.Response;
 import com.mym.consulting.services.AlertService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
