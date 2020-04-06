@@ -1,4 +1,4 @@
-package com.mym.consulting.model;
+package com.mym.consulting.model.request;
 
 import com.mym.consulting.entities.EntregablesEtapaPK;
 import com.mym.consulting.entities.EtapasProyectoPK;

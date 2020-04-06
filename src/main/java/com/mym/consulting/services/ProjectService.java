@@ -1,7 +1,8 @@
 package com.mym.consulting.services;
 
 import com.mym.consulting.entities.*;
-import com.mym.consulting.model.SaveProjectRequest;
+import com.mym.consulting.model.request.SaveProjectRequest;
+import com.mym.consulting.model.request.SaveContractRequest;
 import com.mym.consulting.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,36 +27,63 @@ public class ProjectService {
 
     public void saveProject(SaveProjectRequest request) {
         Proyecto project = request.getProject();
-        Contrato contrato = this.contractRepository.findById(project.getContrato().getId()).get();
-        project.setContrato(contrato);
+        Contrato contract = this.contractRepository.findById(project.getContrato().getId()).get();
+        project.setContrato(contract);
+        this.setWeight(project, contract);
         this.projectRepository.save(project);
         request.getValue().setIdProyecto(project.getId());
-        Valor value = this.valueRepository.findByIdProject(project.getId());
-        if (value != null && value.getTotal() > 0) {
-            value.setTotal(request.getValue().getTotal());
-        } else {
-            value = request.getValue();
-        }
-        this.valueRepository.save(value);
-        request.getStageProjectList().forEach(stage -> {
-            EtapasProyecto etapasProyecto = new EtapasProyecto();
-            stage.setIdProyecto(project.getId());
-            etapasProyecto.setId(stage);
-            this.stagesProjectsRepository.save(etapasProyecto);
-        });
-        request.getDeliverableStageList().forEach(deliverable -> {
-            EntregablesEtapa entregablesEtapa = new EntregablesEtapa();
-            deliverable.setIdProyecto(project.getId());
-            entregablesEtapa.setId(deliverable);
-            this.deliverableStagesRepository.save(entregablesEtapa);
-        });
+        this.saveValue(request.getValue(), project.getId());
+        this.saveStagesProject(request.getStageProjectList(), project.getId());
+        this.saveDeliverableStage(request.getDeliverableStageList(), project.getId());
     }
 
     public List<Proyecto> getAllProjects() {
         return projectRepository.findAll();
     }
 
+    public List<Proyecto> getProjectsByContract(Integer contractId) {
+        return projectRepository.findByContract(contractId);
+    }
+
     public Valor getValueByProject(Integer projectId) {
         return valueRepository.findByIdProject(projectId);
     }
+
+    private void setWeight(Proyecto project, Contrato contract) {
+        if (project.getId() != null && project.getId() > 0){
+            project.setPeso(this.projectRepository.getOne(project.getId()).getPeso());
+        } else {
+            List<Proyecto> projectsByContract = this.projectRepository.findByContract(contract.getId());
+            project.setPeso((projectsByContract != null && !projectsByContract.isEmpty()) ? 0 : 100);
+        }
+    }
+
+    private void saveValue(Valor newValue, Integer projectId) {
+        Valor value = this.valueRepository.findByIdProject(projectId);
+        if (value != null && value.getTotal() > 0) {
+            value.setTotal(newValue.getTotal());
+        } else {
+            value = newValue;
+        }
+        this.valueRepository.save(value);
+    }
+
+    private void saveStagesProject(List<EtapasProyectoPK> stagesProjectList, Integer projectId) {
+        stagesProjectList.forEach(stage -> {
+            EtapasProyecto etapasProyecto = new EtapasProyecto();
+            stage.setIdProyecto(projectId);
+            etapasProyecto.setId(stage);
+            this.stagesProjectsRepository.save(etapasProyecto);
+        });
+    }
+
+    private void saveDeliverableStage(List<EntregablesEtapaPK> deliverableStageList, Integer projectId) {
+        deliverableStageList.forEach(deliverable -> {
+            EntregablesEtapa entregablesEtapa = new EntregablesEtapa();
+            deliverable.setIdProyecto(projectId);
+            entregablesEtapa.setId(deliverable);
+            this.deliverableStagesRepository.save(entregablesEtapa);
+        });
+    }
+
 }

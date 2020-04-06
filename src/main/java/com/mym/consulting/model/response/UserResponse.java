@@ -1,6 +1,6 @@
 package com.mym.consulting.model.response;
 
-import com.mym.consulting.model.User;
+import com.mym.consulting.model.dto.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,7 +1,7 @@
 package com.mym.consulting.services;
 
 import com.mym.consulting.entities.*;
-import com.mym.consulting.model.SaveTeamRequest;
+import com.mym.consulting.model.request.SaveTeamRequest;
 import com.mym.consulting.repositories.TeamRepository;
 import com.mym.consulting.repositories.UsersTeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;

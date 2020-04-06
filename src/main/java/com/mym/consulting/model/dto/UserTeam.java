@@ -1,4 +1,4 @@
-package com.mym.consulting.model;
+package com.mym.consulting.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,10 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
-    private Integer id;
-    private String username;
-    private String name;
-    private String role;
+public class UserTeam {
+    private Integer userId;
+    private Integer teamId;
     private Boolean isLeader;
 }

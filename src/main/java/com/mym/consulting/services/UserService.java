@@ -1,9 +1,8 @@
 package com.mym.consulting.services;
 
-import com.mym.consulting.entities.Etapa;
 import com.mym.consulting.entities.Usuario;
 import com.mym.consulting.entities.UsuariosEquipo;
-import com.mym.consulting.model.User;
+import com.mym.consulting.model.dto.User;
 import com.mym.consulting.repositories.UserRepository;
 import com.mym.consulting.repositories.UsersTeamRepository;
 import com.mym.consulting.util.TokenGenerator;

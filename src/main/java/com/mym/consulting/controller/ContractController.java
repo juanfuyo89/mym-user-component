@@ -2,6 +2,7 @@ package com.mym.consulting.controller;
 
 import com.mym.consulting.entities.Contrato;
 import com.mym.consulting.entities.Etapa;
+import com.mym.consulting.model.request.SaveContractRequest;
 import com.mym.consulting.model.response.ContractResponse;
 import com.mym.consulting.model.response.Response;
 import com.mym.consulting.services.Contractservice;
@@ -29,9 +30,9 @@ public class ContractController extends GenericController {
     }
 
     @RequestMapping(produces = "application/json", method = RequestMethod.POST, path = "/saveContract")
-    public ResponseEntity<Response> saveContract(@RequestBody(required = true) Contrato contract){
-        contractservice.saveContract(contract);
-        logInfo("Guardando contrato N°: " + contract.getNumeroContrato());
+    public ResponseEntity<Response> saveContract(@RequestBody(required = true) SaveContractRequest saveContractRequest){
+        contractservice.saveContract(saveContractRequest);
+        logInfo("Guardando contrato N°: " + saveContractRequest.getContract().getNumeroContrato());
         return new ResponseEntity<Response>(Response.getIntance("Contrato guardado exitosamente."), HttpStatus.OK);
     }
 

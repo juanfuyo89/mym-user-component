@@ -2,7 +2,7 @@ package com.mym.consulting.controller;
 
 import com.mym.consulting.entities.Equipo;
 import com.mym.consulting.model.response.Response;
-import com.mym.consulting.model.SaveTeamRequest;
+import com.mym.consulting.model.request.SaveTeamRequest;
 import com.mym.consulting.model.response.TeamResponse;
 import com.mym.consulting.services.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;

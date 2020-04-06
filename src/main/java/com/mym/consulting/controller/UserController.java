@@ -1,7 +1,7 @@
 package com.mym.consulting.controller;
 
 import com.mym.consulting.model.response.Response;
-import com.mym.consulting.model.User;
+import com.mym.consulting.model.dto.User;
 import com.mym.consulting.model.response.UserResponse;
 import com.mym.consulting.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

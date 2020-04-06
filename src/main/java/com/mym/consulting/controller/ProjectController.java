@@ -3,7 +3,8 @@ package com.mym.consulting.controller;
 
 import com.mym.consulting.entities.Proyecto;
 import com.mym.consulting.entities.Valor;
-import com.mym.consulting.model.*;
+import com.mym.consulting.model.request.SaveProjectRequest;
+import com.mym.consulting.model.request.SaveContractRequest;
 import com.mym.consulting.model.response.ProjectResponse;
 import com.mym.consulting.model.response.Response;
 import com.mym.consulting.model.response.ValueResponse;
@@ -32,6 +33,13 @@ public class ProjectController extends GenericController {
     public ResponseEntity<ProjectResponse> getAllProjects() {
         logInfo("Inicia consulta de proyectos: ");
         List<Proyecto> projectList = projectService.getAllProjects();
+        return new ResponseEntity<ProjectResponse>(new ProjectResponse("Consulta exitosa", projectList), (projectList != null && !projectList.isEmpty()) ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+    }
+
+    @RequestMapping(produces = "application/json", method = RequestMethod.GET, path = "/getProjectsByContract/{contractId}")
+    public ResponseEntity<ProjectResponse> getProjectsByContract(@PathVariable(required = true) Integer contractId) {
+        logInfo("Inicia consulta de proyectos: ");
+        List<Proyecto> projectList = projectService.getProjectsByContract(contractId);
         return new ResponseEntity<ProjectResponse>(new ProjectResponse("Consulta exitosa", projectList), (projectList != null && !projectList.isEmpty()) ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 

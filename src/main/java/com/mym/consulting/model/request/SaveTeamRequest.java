@@ -1,7 +1,7 @@
-package com.mym.consulting.model;
+package com.mym.consulting.model.request;
 
 import com.mym.consulting.entities.Equipo;
-import com.mym.consulting.entities.UsuariosEquipoPK;
+import com.mym.consulting.model.dto.UserTeam;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
