@@ -1,10 +1,11 @@
 package com.mym.consulting.model.response;
 
 import com.mym.consulting.entities.Alerta;
-import com.mym.consulting.entities.Cliente;
+import lombok.Data;
 
 import java.util.List;
 
+@Data
 public class AlertResponse extends Response{
     public AlertResponse(String message, List<Alerta> alertsList){
         super.setResponseMessage(message);

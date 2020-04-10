@@ -25,6 +25,9 @@ public class AlertController extends GenericController{
         logInfo("Inicia consulta de Alertas: ");
         List<Alerta> alertsList = new ArrayList<Alerta>();
         alertsList = alertService.getAllAlerts();
+        alertsList.forEach(alerta -> {
+            System.out.println(alerta.getMensaje());
+        });
         return new ResponseEntity<AlertResponse>(new AlertResponse("Consulta exitosa", alertsList), (alertsList != null && !alertsList.isEmpty()) ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
