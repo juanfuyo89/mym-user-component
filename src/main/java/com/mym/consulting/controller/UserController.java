@@ -1,7 +1,9 @@
 package com.mym.consulting.controller;
 
+import com.mym.consulting.entities.Usuario;
 import com.mym.consulting.model.response.Response;
 import com.mym.consulting.model.dto.User;
+import com.mym.consulting.model.response.RoleResponse;
 import com.mym.consulting.model.response.UserResponse;
 import com.mym.consulting.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,16 +14,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-public class UserController extends GenericController{
+public class UserController extends GenericController {
 
     @Autowired
     UserService userService;
 
     @RequestMapping(produces = "application/json", method = RequestMethod.GET, path = "/userlogin/{user}/{password}")
-    public ResponseEntity<Response> loginUser(@PathVariable("user") String user, @PathVariable("password") String password){
-        String token = userService.validateUser(user, password);
+    public ResponseEntity<RoleResponse> loginUser(@PathVariable("user") String user, @PathVariable("password") String password){
+        Usuario userResponse = userService.validateUser(user, password);
         logInfo("Validando usuario: " + user);
-        return new ResponseEntity<Response>(Response.getIntance(token), (token != null && !token.isEmpty()) ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+        return new ResponseEntity<RoleResponse>(new RoleResponse("Consulta exitosa", userResponse),
+                (userResponse != null && !userResponse.getToken().isEmpty()) ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
     @RequestMapping(produces = "application/json", method = RequestMethod.GET, path = "/getAllUsers")

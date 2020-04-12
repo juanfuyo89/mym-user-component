@@ -22,15 +22,13 @@ public class UserService {
     @Autowired
     UsersTeamRepository usersTeamRepository;
 
-    public String validateUser(String user, String password){
-        String token = "";
+    public Usuario validateUser(String user, String password){
         Usuario usuario = this.userRepository.findUserByUserAndPassword(user, password);
         if (usuario != null && !usuario.getToken().isEmpty()) {
             usuario.setToken(tokenGenerator.getJWTToken(usuario.getUserName()));
             this.userRepository.save(usuario);
-            token = usuario.getToken();
         }
-        return token;
+        return usuario;
     }
 
     public List<User> getAllUsers(){
