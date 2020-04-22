@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -77,12 +78,18 @@ public class ProjectService {
         });
     }
 
-    private void saveDeliverableStage(List<EntregablesEtapaPK> deliverableStageList, Integer projectId) {
+    private void saveDeliverableStage(List<EntregablesEtapa> deliverableStageList, Integer projectId) {
         deliverableStageList.forEach(deliverable -> {
-            EntregablesEtapa entregablesEtapa = new EntregablesEtapa();
-            deliverable.setIdProyecto(projectId);
-            entregablesEtapa.setId(deliverable);
-            this.deliverableStagesRepository.save(entregablesEtapa);
+            deliverable.getId().setIdProyecto(projectId);
+            EntregablesEtapa deliverableStages =
+                    this.deliverableStagesRepository.findById(deliverable.getId().getIdProyecto(),
+                            deliverable.getId().getIdEtapa(), deliverable.getId().getIdEntregable());
+            if (deliverableStages == null) {
+                deliverableStages = new EntregablesEtapa();
+                deliverableStages.setId(deliverable.getId());
+            } else
+                deliverableStages.setPeso(deliverable.getPeso());
+            this.deliverableStagesRepository.save(deliverableStages);
         });
     }
 
