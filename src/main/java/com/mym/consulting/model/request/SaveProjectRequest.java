@@ -13,6 +13,6 @@ import java.util.List;
 public class SaveProjectRequest {
     private Proyecto project;
     private Valor value;
-    private List<EtapasProyectoPK> stageProjectList;
+    private List<EtapasProyecto> stageProjectList;
     private List<EntregablesEtapa> deliverableStageList;
 }

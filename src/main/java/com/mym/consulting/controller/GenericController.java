@@ -12,8 +12,6 @@ public class GenericController {
 
     protected final static Logger LOGGER = LogManager.getRootLogger();
 
-
-
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Response> generalExceptionHandler(Exception e) {
         logError(e);

@@ -16,6 +16,7 @@ import java.util.List;
 
 @RestController
 public class DeliverableController extends GenericController{
+
     @Autowired
     private DeliverableService deliverableService;
 
@@ -40,6 +41,23 @@ public class DeliverableController extends GenericController{
         deliverableService.saveDeliverable(deliverable);
         logInfo("Guardando entregable: " + deliverable.getNombre());
         return new ResponseEntity<Response>(Response.getIntance("Entregable guardado exitosamente."), HttpStatus.OK);
+    }
+
+    @RequestMapping(produces = "application/json", method = RequestMethod.POST, path = "/updateDeliverableByProject")
+    public ResponseEntity<Response> updateDeliverableByProject(@RequestBody(required = true) EntregablesEtapa deliverable){
+        logInfo("Guardando entregable: " + deliverable.getId().getIdEntregable());
+        deliverableService.updateDeliverableByProject(deliverable);
+        return new ResponseEntity<Response>(Response.getIntance("Entregable actualizado exitosamente."), HttpStatus.OK);
+    }
+
+    @RequestMapping(produces = "application/json", method = RequestMethod.GET,
+            path = "/deleteDeliverableByProject/{projectId}/{stageId}/{deliverableId}")
+    public ResponseEntity<Response> deleteDeliverableByProject(@PathVariable(required = true) Integer projectId,
+                                                               @PathVariable(required = true) Integer stageId,
+                                                               @PathVariable(required = true) Integer deliverableId){
+        deliverableService.deleteDeliverableByProject(projectId, stageId, deliverableId);
+        logInfo("Eliminando entregable del proyecto con ID: " + projectId);
+        return new ResponseEntity<Response>(Response.getIntance("Entregable eliminado exitosamente."), HttpStatus.OK);
     }
 
 }

@@ -44,4 +44,11 @@ public class StageController extends GenericController {
         return new ResponseEntity<Response>(Response.getIntance("Etapa guardada exitosamente."), HttpStatus.OK);
     }
 
+    @RequestMapping(produces = "application/json", method = RequestMethod.GET, path = "/deleteStageByProject/{projectId}/{stageId}")
+    public ResponseEntity<Response> deleteStageByProject(@PathVariable(required = true) Integer projectId,
+                                                                        @PathVariable(required = true) Integer stageId){
+        stageService.deleteStageByProject(projectId, stageId);
+        return new ResponseEntity<Response>(Response.getIntance("Etapa eliminada exitosamente."), HttpStatus.OK);
+    }
+
 }

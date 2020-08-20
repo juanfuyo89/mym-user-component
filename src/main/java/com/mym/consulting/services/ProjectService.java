@@ -69,11 +69,15 @@ public class ProjectService {
         this.valueRepository.save(value);
     }
 
-    private void saveStagesProject(List<EtapasProyectoPK> stagesProjectList, Integer projectId) {
+    private void saveStagesProject(List<EtapasProyecto> stagesProjectList, Integer projectId) {
         stagesProjectList.forEach(stage -> {
-            EtapasProyecto etapasProyecto = new EtapasProyecto();
-            stage.setIdProyecto(projectId);
-            etapasProyecto.setId(stage);
+            EtapasProyecto etapasProyecto = this.stagesProjectsRepository.findById(projectId, stage.getId().getIdEtapa());
+            if (etapasProyecto == null) {
+                etapasProyecto = new EtapasProyecto();
+            }
+            stage.getId().setIdProyecto(projectId);
+            etapasProyecto.setId(stage.getId());
+            etapasProyecto.setPeso(stage.getPeso());
             this.stagesProjectsRepository.save(etapasProyecto);
         });
     }
@@ -87,6 +91,8 @@ public class ProjectService {
             if (deliverableStages == null) {
                 deliverableStages = new EntregablesEtapa();
                 deliverableStages.setId(deliverable.getId());
+                deliverableStages.setPeso(deliverable.getPeso());
+                deliverableStages.setEstado("I");
             } else
                 deliverableStages.setPeso(deliverable.getPeso());
             this.deliverableStagesRepository.save(deliverableStages);
