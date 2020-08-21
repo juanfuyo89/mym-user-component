@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -56,6 +57,8 @@ public class DeliverableService {
                             + ", del proyecto " + projectCode);
                     alerta.setLeida("N");
                     alertRepository.save(alerta);
+                } else {
+                    entregablesEtapa.setFechaEntrega(new Date());
                 }
             }
             deliverableStagesRepository.save(entregablesEtapa);
