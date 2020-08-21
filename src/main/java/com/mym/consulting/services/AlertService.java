@@ -15,10 +15,11 @@ public class AlertService {
         return alertRepository.findAll();
     }
     public void generateAlert(Alerta alert){
-        try {
-            alertRepository.save(alert);
-        }catch(Exception e){
-            e.printStackTrace();
-        }
+        alertRepository.save(alert);
+    }
+    public void markAlertAsRead(Integer alertId){
+        Alerta alert = alertRepository.findById(alertId).get();
+        alert.setLeida("S");
+        alertRepository.save(alert);
     }
 }

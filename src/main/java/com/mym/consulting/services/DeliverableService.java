@@ -49,7 +49,7 @@ public class DeliverableService {
                 if (deliverable.getEstado().equals("A")) {
                     Alerta alerta = new Alerta();
                     alerta.setTimestampAlerta(new Timestamp(System.currentTimeMillis()));
-                    String deliverableName = deliverableRepository.findById(deliverable.getId().getIdEtapa()).get().getNombre();
+                    String deliverableName = deliverableRepository.findById(deliverable.getId().getIdEntregable()).get().getNombre();
                     String stageName = stageRepository.findById(deliverable.getId().getIdEtapa()).get().getNombre();
                     String projectCode = projectRepository.findById(deliverable.getId().getIdProyecto()).get().getCodigoProyecto();
                     alerta.setMensaje("Se actualizó el entregable " + deliverableName + ", de la entrega " + stageName
