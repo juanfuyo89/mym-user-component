@@ -1,0 +1,13 @@
+[Unit]
+Description=My Webapp Java REST Service
+[Service]
+User=ubuntu
+#path to executable. 
+#executable is a bash script which calls jar file
+ExecStart=java -jar /opt/microservices/mym-user-component/mym-user-component.jar
+SuccessExitStatus=143
+TimeoutStopSec=10
+Restart=on-failure
+RestartSec=5
+[Install]
+WantedBy=multi-user.target

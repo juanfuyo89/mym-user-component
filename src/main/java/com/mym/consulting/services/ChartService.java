@@ -39,7 +39,6 @@ public class ChartService {
                     if (strDate.equals(lastDate) && dataList.size() > 0) {
                         double temp = dataList.get(dataList.size()-1);
                         dataList.remove(dataList.size()-1);
-                        
                     } else {
                         labelList.add(strDate);
                     }

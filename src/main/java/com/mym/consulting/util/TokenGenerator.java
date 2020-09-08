@@ -12,7 +12,7 @@ import java.util.List;
 @Component
 public class TokenGenerator {
 
-    private final Long expiration = 3600000l;
+    private final Long expiration = 43200000l;
 
     public String getJWTToken(String username) {
         JwtBuilder builder = Jwts.builder().setId(JWTAuthorizationFilter.JWT_ID)

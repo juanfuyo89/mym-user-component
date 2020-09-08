@@ -21,7 +21,7 @@ import java.util.Optional;
 @Service
 public class FileService {
 
-    private final Path rootLocation = Paths.get("C:\\temp\\");
+    private final Path rootLocation = Paths.get("/opt/tomcat/webapps/ROOT/temp/");
 
     @Autowired
     FileRepository fileRepository;
@@ -37,7 +37,7 @@ public class FileService {
         Files.copy(file.getInputStream(), path);
         Archivo archivo = new Archivo();
         archivo.setName(fileName);
-        archivo.setPath(path.toString());
+        archivo.setPath("http://18.188.39.174:8080/temp/" + fileName);
         archivo.setTimestampCarga(new Timestamp(System.currentTimeMillis()));
         fileRepository.save(archivo);
         return archivo.getId();

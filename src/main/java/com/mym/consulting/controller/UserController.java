@@ -23,8 +23,7 @@ public class UserController extends GenericController {
     public ResponseEntity<RoleResponse> loginUser(@PathVariable("user") String user, @PathVariable("password") String password){
         Usuario userResponse = userService.validateUser(user, password);
         logInfo("Validando usuario: " + user);
-        return new ResponseEntity<RoleResponse>(new RoleResponse("Consulta exitosa", userResponse),
-                (userResponse != null && !userResponse.getToken().isEmpty()) ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+        return new ResponseEntity<RoleResponse>(new RoleResponse("Consulta exitosa", userResponse), HttpStatus.OK);
     }
 
     @RequestMapping(produces = "application/json", method = RequestMethod.GET, path = "/getAllUsers")
